@@ -1,9 +1,9 @@
 import { address, appendTransactionMessageInstructions, assertIsTransactionWithBlockhashLifetime, createKeyPairSignerFromBytes, createSolanaRpc, createSolanaRpcSubscriptions, createTransactionMessage, getSignatureFromTransaction, sendAndConfirmTransactionFactory, setTransactionMessageFeePayerSigner, setTransactionMessageLifetimeUsingBlockhash, signTransactionMessageWithSigners } from "@solana/kit";
 import { findAssociatedTokenPda, getCreateAssociatedTokenIdempotentInstructionAsync, getTransferCheckedInstruction, TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
 
-import wallet from "../../wallet.json"
-import { mintAddress } from "../../output/spl/init.json";
-import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "../utils/output";
+import wallet from "@root/wallet.json";
+import { mintAddress } from "@root/output/spl/init.json";
+import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
 
 const rpc = createSolanaRpc(process.env.SOLANA_RPC_URL!);
 

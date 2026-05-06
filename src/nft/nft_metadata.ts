@@ -2,9 +2,9 @@ import { createSignerFromKeypair, signerIdentity } from "@metaplex-foundation/um
 import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
 
-import wallet from "../../wallet.json";
-import { image } from "../../output/nft/image.json";
-import { logError, logSuccess, saveOutput } from "../utils/output";
+import wallet from "@root/wallet.json";
+import { image } from "@root/output/nft/image.json";
+import { logError, logSuccess, saveOutput } from "@/utils/output";
 
 const umi = createUmi(process.env.SOLANA_RPC_URL!);
 

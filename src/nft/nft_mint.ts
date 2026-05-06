@@ -3,9 +3,9 @@ import { createSignerFromKeypair, generateSigner, signerIdentity } from "@metapl
 import { create, mplCore } from "@metaplex-foundation/mpl-core";
 import { base58 } from "@metaplex-foundation/umi/serializers";
 
-import wallet from "../../wallet.json";
-import { url as metadataUri } from "../../output/nft/metadata.json";
-import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "../utils/output";
+import wallet from "@root/wallet.json";
+import { url as metadataUri } from "@root/output/nft/metadata.json";
+import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
 
 const umi = createUmi(process.env.SOLANA_RPC_URL!);
 

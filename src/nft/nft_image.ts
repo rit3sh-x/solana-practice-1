@@ -4,8 +4,8 @@ import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
 import { readFile } from "fs/promises";
 import { resolve } from "path";
 
-import wallet from "../../wallet.json";
-import { logError, logSuccess, saveOutput } from "../utils/output";
+import wallet from "@root/wallet.json";
+import { logError, logSuccess, saveOutput } from "@/utils/output";
 
 const umi = createUmi(process.env.SOLANA_RPC_URL!);
 

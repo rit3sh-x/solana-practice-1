@@ -2,8 +2,8 @@ import { appendTransactionMessageInstructions, assertIsTransactionWithBlockhashL
 import { getInitializeMintInstruction, getMintSize, TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
 import { getCreateAccountInstruction } from "@solana-program/system";
 
-import wallet from "../../wallet.json";
-import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "../utils/output";
+import wallet from "@root/wallet.json";
+import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
 
 
 const rpc = createSolanaRpc(process.env.SOLANA_RPC_URL!);

@@ -3,9 +3,9 @@ import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
 import { createMetadataAccountV3, CreateMetadataAccountV3InstructionAccounts, CreateMetadataAccountV3InstructionArgs, DataV2Args } from "@metaplex-foundation/mpl-token-metadata";
 import { base58 } from "@metaplex-foundation/umi/serializers";
 
-import wallet from "../../wallet.json";
-import { mintAddress } from "../../output/spl/init.json";
-import { explorerTx, logError, logSuccess, saveOutput } from "../utils/output";
+import wallet from "@root/wallet.json";
+import { mintAddress } from "@root/output/spl/init.json";
+import { explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
 
 const mint = publicKey(mintAddress);
 

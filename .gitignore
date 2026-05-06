@@ -1,0 +1,16 @@
+node_modules/
+output/
+dist/
+.env
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.development
+.env.test
+.env.production
+
+wallet*.json
+
+image.jpg

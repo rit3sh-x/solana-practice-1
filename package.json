@@ -12,6 +12,7 @@
     "spl:transfer": "node -r dotenv/config --import tsx src/spl/spl_transfer.ts",
     "nft:image": "node -r dotenv/config --import tsx src/nft/nft_image.ts",
     "nft:metadata": "node -r dotenv/config --import tsx src/nft/nft_metadata.ts",
+    "nft:collection": "node -r dotenv/config --import tsx src/nft/nft_collection.ts",
     "nft:mint": "node -r dotenv/config --import tsx src/nft/nft_mint.ts"
   },
   "keywords": [],

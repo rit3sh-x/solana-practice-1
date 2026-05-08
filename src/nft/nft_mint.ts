@@ -65,7 +65,7 @@ function loadCollectionAddress(): string | null {
             collectionAddress ? "NFT minted (in collection)" : "NFT minted (standalone)",
             {
                 asset: asset.publicKey,
-                ...(collectionAddress && {collection: collectionAddress}),
+                ...(collectionAddress && { collection: collectionAddress }),
                 attributes: ATTRIBUTES.map((a) => `${a.key}=${a.value}`).join(", "),
                 metadataUri,
                 signature,

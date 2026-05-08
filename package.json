@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "pnpm rebuild bigint-buffer",
     "spl:init": "node -r dotenv/config --import tsx src/spl/spl_init.ts",
     "spl:metadata": "node -r dotenv/config --import tsx src/spl/spl_metadata.ts",
@@ -13,7 +12,8 @@
     "nft:image": "node -r dotenv/config --import tsx src/nft/nft_image.ts",
     "nft:metadata": "node -r dotenv/config --import tsx src/nft/nft_metadata.ts",
     "nft:collection": "node -r dotenv/config --import tsx src/nft/nft_collection.ts",
-    "nft:mint": "node -r dotenv/config --import tsx src/nft/nft_mint.ts"
+    "nft:mint": "node -r dotenv/config --import tsx src/nft/nft_mint.ts",
+    "nft:collection-mint": "node -r dotenv/config --import tsx src/nft/nft_collection_with_mint.ts"
   },
   "keywords": [],
   "author": "",

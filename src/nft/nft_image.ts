@@ -1,25 +1,11 @@
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
-import { createGenericFile, createSignerFromKeypair, signerIdentity } from "@metaplex-foundation/umi";
-import { irysUploader } from "@metaplex-foundation/umi-uploader-irys";
+import { createGenericFile } from "@metaplex-foundation/umi";
 import { readFile } from "fs/promises";
 import { resolve } from "path";
 
-import wallet from "@root/wallet.json";
 import { logError, logSuccess, saveOutput } from "@/utils/output";
+import { getUmi } from "@/utils/rpc";
 
-const umi = createUmi(process.env.SOLANA_RPC_URL!);
-
-const keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
-const signer = createSignerFromKeypair(umi, keypair);
-
-
-umi.use(
-    irysUploader({
-        address: "https://devnet.irys.xyz/",
-    })
-);
-
-umi.use(signerIdentity(signer));
+const { umi } = getUmi(["irys"]);
 
 const IMAGE_PATH = process.env.NFT_IMAGE_PATH ?? "./image.jpg";
 const CONTENT_TYPE = process.env.NFT_IMAGE_CONTENT_TYPE ?? "image/jpeg";

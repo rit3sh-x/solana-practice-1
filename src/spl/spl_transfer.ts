@@ -1,13 +1,11 @@
-import { address, appendTransactionMessageInstructions, assertIsTransactionWithBlockhashLifetime, createKeyPairSignerFromBytes, createSolanaRpc, createSolanaRpcSubscriptions, createTransactionMessage, getSignatureFromTransaction, sendAndConfirmTransactionFactory, setTransactionMessageFeePayerSigner, setTransactionMessageLifetimeUsingBlockhash, signTransactionMessageWithSigners } from "@solana/kit";
+import { address, appendTransactionMessageInstructions, assertIsTransactionWithBlockhashLifetime, createTransactionMessage, getSignatureFromTransaction, setTransactionMessageFeePayerSigner, setTransactionMessageLifetimeUsingBlockhash, signTransactionMessageWithSigners } from "@solana/kit";
 import { findAssociatedTokenPda, getCreateAssociatedTokenIdempotentInstructionAsync, getTransferCheckedInstruction, TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
 
-import wallet from "@root/wallet.json";
 import { mintAddress } from "@root/output/spl/init.json";
 import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
+import { getKitClient } from "@/utils/rpc";
 
-const rpc = createSolanaRpc(process.env.SOLANA_RPC_URL!);
-
-const rpcSubscriptions = createSolanaRpcSubscriptions(process.env.SOLANA_WS_URL!);
+const { rpc, sendAndConfirm, getSigner } = getKitClient();
 
 const TOKEN_DECIMALS = 6;
 const AMOUNT = 1_000_000n;
@@ -18,12 +16,7 @@ const to = address("FECajuKAyYCEp1woG9K42iJeKCAJjKUpxzXDx9FPpfWk");
 
 (async () => {
     try {
-        const signer = await createKeyPairSignerFromBytes(
-            new Uint8Array(wallet)
-        );
-        const sendAndConfirm = sendAndConfirmTransactionFactory({
-            rpc, rpcSubscriptions
-        });
+        const signer = await getSigner();
 
         const [fromAta] = await findAssociatedTokenPda({
             mint,

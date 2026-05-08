@@ -1,20 +1,15 @@
-import { appendTransactionMessageInstructions, assertIsTransactionWithBlockhashLifetime, createKeyPairSignerFromBytes, createSolanaRpc, createSolanaRpcSubscriptions, createTransactionMessage, generateKeyPairSigner, getSignatureFromTransaction, sendAndConfirmTransactionFactory, setTransactionMessageFeePayerSigner, setTransactionMessageLifetimeUsingBlockhash, signTransactionMessageWithSigners } from "@solana/kit";
+import { appendTransactionMessageInstructions, assertIsTransactionWithBlockhashLifetime, createTransactionMessage, generateKeyPairSigner, getSignatureFromTransaction, setTransactionMessageFeePayerSigner, setTransactionMessageLifetimeUsingBlockhash, signTransactionMessageWithSigners } from "@solana/kit";
 import { getInitializeMintInstruction, getMintSize, TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
 import { getCreateAccountInstruction } from "@solana-program/system";
 
-import wallet from "@root/wallet.json";
 import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
+import { getKitClient } from "@/utils/rpc";
 
-
-const rpc = createSolanaRpc(process.env.SOLANA_RPC_URL!);
-
-const rpcSubscriptions = createSolanaRpcSubscriptions(process.env.SOLANA_WS_URL!);
+const { rpc, sendAndConfirm, getSigner } = getKitClient();
 
 (async () => {
     try {
-        const signer = await createKeyPairSignerFromBytes(
-            new Uint8Array(wallet)
-        );
+        const signer = await getSigner();
 
         const mint = await generateKeyPairSigner();
 
@@ -23,10 +18,6 @@ const rpcSubscriptions = createSolanaRpcSubscriptions(process.env.SOLANA_WS_URL!
         const rent = await rpc.getMinimumBalanceForRentExemption(space).send();
 
         const { value: latestBlockhash } = await rpc.getLatestBlockhash().send();
-
-        const sendAndConfirm = sendAndConfirmTransactionFactory({
-            rpc, rpcSubscriptions
-        });
 
         const msg = createTransactionMessage({ version: 0 });
 

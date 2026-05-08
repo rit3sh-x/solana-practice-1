@@ -1,20 +1,13 @@
-import { createSignerFromKeypair, publicKey, signerIdentity } from "@metaplex-foundation/umi";
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
+import { publicKey } from "@metaplex-foundation/umi";
 import { createMetadataAccountV3, CreateMetadataAccountV3InstructionAccounts, CreateMetadataAccountV3InstructionArgs, DataV2Args } from "@metaplex-foundation/mpl-token-metadata";
 import { base58 } from "@metaplex-foundation/umi/serializers";
 
-import wallet from "@root/wallet.json";
 import { mintAddress } from "@root/output/spl/init.json";
 import { explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
+import { getUmi } from "@/utils/rpc";
 
 const mint = publicKey(mintAddress);
-
-const umi = createUmi(process.env.SOLANA_RPC_URL!);
-
-const keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
-const signer = createSignerFromKeypair(umi, keypair);
-
-umi.use(signerIdentity(signer));
+const { umi, signer } = getUmi();
 
 
 (async () => {

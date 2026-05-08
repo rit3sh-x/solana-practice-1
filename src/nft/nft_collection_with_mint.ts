@@ -1,19 +1,12 @@
-import { createUmi } from "@metaplex-foundation/umi-bundle-defaults";
-import { createSignerFromKeypair, generateSigner, signerIdentity } from "@metaplex-foundation/umi";
-import { create, createCollection, mplCore, ruleSet } from "@metaplex-foundation/mpl-core";
+import { generateSigner } from "@metaplex-foundation/umi";
+import { create, createCollection, ruleSet } from "@metaplex-foundation/mpl-core";
 import { base58 } from "@metaplex-foundation/umi/serializers";
 
-import wallet from "@root/wallet.json";
 import { url as metadataUri } from "@root/output/nft/metadata.json";
 import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
+import { getUmi } from "@/utils/rpc";
 
-const umi = createUmi(process.env.SOLANA_RPC_URL!);
-
-const keypair = umi.eddsa.createKeypairFromSecretKey(new Uint8Array(wallet));
-const signer = createSignerFromKeypair(umi, keypair);
-
-umi.use(signerIdentity(signer));
-umi.use(mplCore());
+const { umi, keypair } = getUmi(["mplCore"]);
 
 const ROYALTY_BPS = 500;
 

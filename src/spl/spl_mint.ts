@@ -1,13 +1,11 @@
-import { address, appendTransactionMessageInstructions, assertIsTransactionWithBlockhashLifetime, createKeyPairSignerFromBytes, createSolanaRpc, createSolanaRpcSubscriptions, createTransactionMessage, getSignatureFromTransaction, sendAndConfirmTransactionFactory, setTransactionMessageFeePayerSigner, setTransactionMessageLifetimeUsingBlockhash, signTransactionMessageWithSigners } from "@solana/kit";
+import { address, appendTransactionMessageInstructions, assertIsTransactionWithBlockhashLifetime, createTransactionMessage, getSignatureFromTransaction, setTransactionMessageFeePayerSigner, setTransactionMessageLifetimeUsingBlockhash, signTransactionMessageWithSigners } from "@solana/kit";
 import { findAssociatedTokenPda, getMintToInstruction, TOKEN_PROGRAM_ADDRESS, getCreateAssociatedTokenIdempotentInstructionAsync } from "@solana-program/token";
 
-import wallet from "@root/wallet.json";
 import { mintAddress } from "@root/output/spl/init.json";
 import { explorerAddr, explorerTx, logError, logSuccess, saveOutput } from "@/utils/output";
+import { getKitClient } from "@/utils/rpc";
 
-const rpc = createSolanaRpc(process.env.SOLANA_RPC_URL!);
-
-const rpcSubscriptions = createSolanaRpcSubscriptions(process.env.SOLANA_WS_URL!);
+const { rpc, sendAndConfirm, getSigner } = getKitClient();
 
 const TOKEN_DECIMALS = 6;
 const ONE_TOKEN = 10n ** BigInt(TOKEN_DECIMALS);
@@ -17,9 +15,7 @@ const mint = address(mintAddress);
 
 (async () => {
     try {
-        const signer = await createKeyPairSignerFromBytes(
-            new Uint8Array(wallet)
-        );
+        const signer = await getSigner();
 
         const [ata] = await findAssociatedTokenPda({
             mint,
@@ -61,10 +57,6 @@ const mint = address(mintAddress);
         assertIsTransactionWithBlockhashLifetime(signedTx);
 
         const signature = getSignatureFromTransaction(signedTx);
-
-        const sendAndConfirm = sendAndConfirmTransactionFactory({
-            rpc, rpcSubscriptions
-        });
 
         await sendAndConfirm(signedTx, { commitment: "confirmed" });
 
